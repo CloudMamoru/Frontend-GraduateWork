@@ -11,15 +11,11 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import { mainListItems } from '../../components/listItems/listItems';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth: number = 240;
 
@@ -74,8 +70,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
-	const [open, setOpen] = React.useState(true);
+export default function CustomerLayout() {
+	const [open, setOpen] = React.useState(false);
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
@@ -147,40 +143,10 @@ export default function Dashboard() {
 						height: '100vh',
 						overflow: 'auto'
 					}}
-				>
+				> 
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-						<Grid container spacing={3}>
-							<Grid item xs={12} md={8} lg={9}>
-								<Paper
-									sx={{
-										p: 2,
-										display: 'flex',
-										flexDirection: 'column',
-										height: 240
-									}}
-								>
-									<Chart />
-								</Paper>
-							</Grid>
-							<Grid item xs={12} md={4} lg={3}>
-								<Paper
-									sx={{
-										p: 2,
-										display: 'flex',
-										flexDirection: 'column',
-										height: 240
-									}}
-								>
-									<Deposits />
-								</Paper>
-							</Grid>
-							<Grid item xs={12}>
-								<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-									<Orders />
-								</Paper>
-							</Grid>
-						</Grid>
+						<Outlet />
 					</Container>
 				</Box>
 			</Box>

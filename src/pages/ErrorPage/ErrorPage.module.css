@@ -1,0 +1,12 @@
+.centered {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Для вертикального центрирования */
+}
+
+.centered img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

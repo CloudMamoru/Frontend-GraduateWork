@@ -11,7 +11,7 @@ export const NewCustomerForm = () => {
 
 	return (
 		<div>
-			<Paper style={{ maxWidth: '800px', padding: '30px' }} >
+			<Paper style={{ maxWidth: '75vw', padding: '45px' }} >
 				<Typography variant="h4" style={{textAlign: 'center'}} >Добавление нового покупателя</Typography>
 				<br/>
 				<form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={submit}>
