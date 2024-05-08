@@ -1,4 +1,5 @@
 export interface CustomerInterface {
+  id?: {
     Education: string;
     Income: number | null;
     Kidhome: number | null;
@@ -23,4 +24,5 @@ export interface CustomerInterface {
     Family_Size: number | null;
     Is_Parent: number | null;
     Clusters: number | null;
+  }
 }

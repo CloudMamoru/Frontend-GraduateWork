@@ -4,19 +4,26 @@ import axios from 'axios';
 
 // Interfaces:
 export interface CustomerState {
-  customers?: CustomerInterface[],
-  typical?: CustomerInterface[],
+  customers: CustomerInterface;
+  typicalCustomers: CustomerInterface;
+  errorMessage?: string;
 }
 
-const initialState = {
-	customers: [],
-	typical: []
+const initialState: CustomerState = {
+	customers: {},
+	typicalCustomers: {}
 };
 
 export const getCustomers = createAsyncThunk('customers/allCustomers',
 	async () => {
 		const { data } = await axios.get<CustomerInterface>('http://127.0.0.1:8000/customers');
-		console.log(data);
+		return data;
+	}
+);
+
+export const getTypicalCustomers = createAsyncThunk('customers/typicalCustomers',
+	async () => {
+		const { data } = await axios.get<CustomerInterface>('http://127.0.0.1:8000/typical');
 		return data;
 	}
 );
@@ -28,10 +35,19 @@ export const customerSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getCustomers.fulfilled, (state, action) => {
-			console.log(action.payload);
-			console.log(Object.keys(action.payload));
+			state.customers = action.payload;
+		});
+		builder.addCase(getCustomers.rejected, (state, action) => {
+			state.errorMessage = action.error.message;
+		});
+		builder.addCase(getTypicalCustomers.fulfilled, (state, action) => {
+			state.typicalCustomers = action.payload;
+		});
+		builder.addCase(getTypicalCustomers.rejected, (state, action) => {
+			state.errorMessage = action.error.message;
 		});
 	}
+  
 });
 
 export const customerActions = customerSlice.actions;
