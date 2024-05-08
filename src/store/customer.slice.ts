@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CustomerInterface } from '../interfaces/customer.interface';
 import axios from 'axios';
+import { newCustomerInterface } from '../interfaces/newCustomer.interface';
 
 // Interfaces:
 export interface CustomerState {
   customers: CustomerInterface;
-  typicalCustomers: CustomerInterface;
+	typicalCustomers: CustomerInterface;
   errorMessage?: string;
 }
 
@@ -28,6 +29,15 @@ export const getTypicalCustomers = createAsyncThunk('customers/typicalCustomers'
 	}
 );
 
+export const addNewCustomer = createAsyncThunk('customers/addNewCustomer',
+	async (params: newCustomerInterface) => {
+		const { data } = await axios.post('http://127.0.0.1:8000/add_customer', {
+			...params
+		});
+		return data;
+	}
+);
+
 export const customerSlice = createSlice({
 	name: 'customer',
 	initialState,
@@ -45,6 +55,9 @@ export const customerSlice = createSlice({
 		});
 		builder.addCase(getTypicalCustomers.rejected, (state, action) => {
 			state.errorMessage = action.error.message;
+		});
+		builder.addCase(addNewCustomer.fulfilled, (state, action) => {
+			console.log(action.payload);
 		});
 	}
   

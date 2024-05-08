@@ -1,0 +1,30 @@
+export interface newCustomerInterface {
+  Year_Birth: number
+  Education: string
+  Marital_Status: string
+  Income: number
+  Kidhome: number
+  Teenhome: number
+  Dt_Customer: string
+  Recency: number
+  Complain: number
+  MntWines: number
+  MntFruits: number
+  MntMeatProducts: number
+  MntFishProducts: number
+  MntSweetProducts: number
+  MntGoldProds: number
+  NumDealsPurchases: number
+  AcceptedCmp1: number
+  AcceptedCmp2: number
+  AcceptedCmp3: number
+  AcceptedCmp4: number
+  AcceptedCmp5: number
+  Response: number
+  NumWebPurchases: number
+  NumCatalogPurchases: number
+  NumStorePurchases: number
+  NumWebVisitsMonth: number
+  Z_CostContact: number
+  Z_Revenue: number
+}
