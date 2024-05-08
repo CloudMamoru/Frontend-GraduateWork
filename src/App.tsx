@@ -1,10 +1,14 @@
-import Dashboard from './components/Dashbord/Dashbord';
+import { Provider } from 'react-redux';
+// import Dashboard from './components/Dashbord/Dashbord';
+import { store } from './store/store';
+import { Test } from './components/Test';
 
 function App() {
 	return (
-		<>
-			<Dashboard />
-		</>
+		<Provider store={store}>
+			{/* <Dashboard /> */}
+			<Test />
+		</Provider>
 	);
 }
 
