@@ -6,6 +6,7 @@ import { ClusterPage } from '../pages/ClusterPage/ClusterPage';
 import { TypicalPage } from '../pages/TypicalPage/TypicalPage';
 import { AddCustomerPage } from '../pages/AddCustomerPage/AddCustomerPage';
 import { InfoPage } from '../pages/InfoPage/InfoPage';
+import { Test } from '../components/Test';
 
 
 export const router = createBrowserRouter([
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'info',
 				element: <InfoPage />
+			},
+			{
+				path: 'test',
+				element: <Test />
 			}
 		]
 	}, 
