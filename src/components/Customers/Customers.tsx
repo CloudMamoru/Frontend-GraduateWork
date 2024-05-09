@@ -4,28 +4,21 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../Title/Title';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import React, { useEffect, useState } from 'react';
 import { TablePagination } from '@mui/material';
-import { getCustomers } from '../../store/customer.slice';
 import { useNavigate } from 'react-router-dom';
+import { CustomerInterface } from '../../interfaces/customer.interface';
 
-export default function Customers() {
+interface CustomerProps {
+	customers: CustomerInterface[],
+	title?: string
+}
+
+export default function Customers({customers, title='Клиенты'}: CustomerProps) {
 	const navigate = useNavigate();
-	const dispatch = useDispatch<AppDispatch>();
-	// ! Принимаем из пропсов
-	const customers = useSelector((s: RootState) => s.customer.customers);
 	const countOfRecords = customers.length;
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
-
-
-	// ! УДАЛИТЬ
-	useEffect(() => {
-		dispatch(getCustomers());
-	}, []);
-
 
 	const handleChangePage = (
 		event: React.MouseEvent<HTMLButtonElement> | null,
@@ -63,7 +56,7 @@ export default function Customers() {
 
 	return (
 		<React.Fragment>
-			<Title>Клиенты</Title>
+			<Title>{title}</Title>
 			<Table size="small">
 				<TableHead>
 					<TableRow>

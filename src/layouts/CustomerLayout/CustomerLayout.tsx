@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -14,6 +14,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from '../../components/listItems/listItems';
 import { Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getCustomers, getTypicalCustomers } from '../../store/customer.slice';
 
 const drawerWidth: number = 280;
 
@@ -65,14 +68,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 	})
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function CustomerLayout() {
+	const dispatch = useDispatch<AppDispatch>();
 	const [open, setOpen] = React.useState(false);
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
+
+	useEffect(() => {
+		dispatch(getCustomers());
+		dispatch(getTypicalCustomers());
+	}, []);
+
 
 	return (
 		<ThemeProvider theme={defaultTheme}>
