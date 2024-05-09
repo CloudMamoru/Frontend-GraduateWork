@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export const mainListItems = (
 	<React.Fragment>
-		<Link style={{textDecoration: 'none', color: 'inherit'}} to={'/analytics/customer'}>
+		<Link style={{textDecoration: 'none', color: 'inherit'}} to={'/analytics/customers'}>
 			<ListItemButton>
 				<ListItemIcon>
 					<PeopleIcon />
