@@ -1,8 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import CustomerLayout from '../layouts/CustomerLayout/CustomerLayout';
 import { ErrorPage } from '../pages/ErrorPage/ErrorPage';
-import { NewCustomerForm } from '../components/NewCustomerForm/NewCustomerForm';
-import { CustomersPage } from '../pages/CustomersPage/CustomersPage';
+import { CustomerPage } from '../pages/CustomerPage/CustomerPage';
+import { ClusterPage } from '../pages/ClusterPage/ClusterPage';
+import { TypicalPage } from '../pages/TypicalPage/TypicalPage';
+import { AddCustomerPage } from '../pages/AddCustomerPage/AddCustomerPage';
+import { InfoPage } from '../pages/InfoPage/InfoPage';
 
 
 export const router = createBrowserRouter([
@@ -11,12 +14,24 @@ export const router = createBrowserRouter([
 		element: <CustomerLayout />,
 		children: [
 			{
-				path: 'addCustomer',
-				element: <NewCustomerForm />
+				path: 'customer',
+				element: <CustomerPage />
 			},
 			{
-				path: 'customers',
-				element: <CustomersPage />
+				path: 'cluster',
+				element: <ClusterPage />
+			},
+			{
+				path: 'typical',
+				element: <TypicalPage />
+			},
+			{
+				path: 'addCustomer',
+				element: <AddCustomerPage />
+			},
+			{
+				path: 'info',
+				element: <InfoPage />
 			}
 		]
 	}, 

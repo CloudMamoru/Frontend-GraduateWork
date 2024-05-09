@@ -9,15 +9,13 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from '../../components/listItems/listItems';
 import { Outlet } from 'react-router-dom';
 
-const drawerWidth: number = 240;
+const drawerWidth: number = 280;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -60,7 +58,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 				}),
 				width: theme.spacing(7),
 				[theme.breakpoints.up('sm')]: {
-					width: theme.spacing(9)
+					width: theme.spacing(7)
 				}
 			})
 		}
@@ -105,13 +103,8 @@ export default function CustomerLayout() {
 							noWrap
 							sx={{ flexGrow: 1 }}
 						>
-              Dashboard
+              Информация о клиентах компании 
 						</Typography>
-						<IconButton color="inherit">
-							<Badge badgeContent={4} color="secondary">
-								<NotificationsIcon />
-							</Badge>
-						</IconButton>
 					</Toolbar>
 				</AppBar>
 				<Drawer variant="permanent" open={open}>
