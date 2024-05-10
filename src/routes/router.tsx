@@ -8,6 +8,7 @@ import { AddCustomerPage } from '../pages/AddCustomerPage/AddCustomerPage';
 import { InfoPage } from '../pages/InfoPage/InfoPage';
 import { Test } from '../components/Test';
 import { CustomerPage } from '../pages/CustomerPage/CustomerPage';
+import { StartPage } from '../pages/StartPage/StartPage';
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
 			}
 		]
 	}, 
+	{
+		path: '',
+		element: <StartPage />
+	},
 	{
 		path: '*',
 		element: <ErrorPage />

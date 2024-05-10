@@ -8,7 +8,7 @@ import { CustomerInterface } from '../interfaces/customer.interface';
 export interface CustomerState {
   customers: CustomerInterface[];
 	typicalCustomers: CustomerInterface[];
-  errorMessage?: string;
+	errorMessage?: string;
 }
 
 const initialState: CustomerState = {
@@ -19,6 +19,7 @@ const initialState: CustomerState = {
 export const getCustomers = createAsyncThunk('customers/allCustomers',
 	async () => {
 		const { data } = await axios.get<BackendCustomerInterface>('http://127.0.0.1:8000/customers');
+		console.log('Добавлен');
 		return data;
 	}
 );
@@ -30,14 +31,27 @@ export const getTypicalCustomers = createAsyncThunk('customers/typicalCustomers'
 	}
 );
 
-export const addNewCustomer = createAsyncThunk('customers/addNewCustomer',
-	async (params: newCustomerInterface) => {
-		const { data } = await axios.post('http://127.0.0.1:8000/add_customer', {
-			...params
-		});
+export const recalculation = createAsyncThunk('customers/recalculation',
+	async () => {
+		const { data } = await axios.get('http://127.0.0.1:8000/recalculation');
 		return data;
 	}
 );
+
+export const addNewCustomer = createAsyncThunk('customers/addNewCustomer',
+	async (params: newCustomerInterface, thunkApi) => {
+		console.log(params);
+		const { data } = await axios.post('http://127.0.0.1:8000/add_customer', {
+			...params
+		});
+		thunkApi.dispatch(recalculation());
+		setTimeout(() => {
+			thunkApi.dispatch(getCustomers());
+		}, 300);
+		return data;
+	}
+);
+
 
 export const customerSlice = createSlice({
 	name: 'customer',
@@ -72,8 +86,10 @@ export const customerSlice = createSlice({
 		builder.addCase(addNewCustomer.fulfilled, (state, action) => {
 			console.log(action.payload);
 		});
+		builder.addCase(recalculation.fulfilled, (state, action) => {
+			console.log(action.payload);
+		});
 	}
-  
 });
 
 export const customerActions = customerSlice.actions;

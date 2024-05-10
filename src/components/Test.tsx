@@ -21,7 +21,7 @@ export const Test = () => {
 
 	return (
 		<div>
-			<Button variant="outlined" onClick={test1} >Получить данные клиентов</Button>
+			<Button variant="outlined" onClick={test1} >Пересчитать данные</Button>
 			<Button variant="outlined" onClick={test2} >Получить данные типичных представителей</Button>
 			<Button variant="outlined" onClick={test3} >Добавить нового пользователя</Button>
 		</div>
