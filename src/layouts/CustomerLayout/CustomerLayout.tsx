@@ -14,8 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from '../../components/listItems/listItems';
 import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 import { getCustomers, getTypicalCustomers } from '../../store/customer.slice';
 
 const drawerWidth: number = 280;
@@ -73,7 +73,6 @@ const defaultTheme = createTheme();
 export default function CustomerLayout() {
 	const dispatch = useDispatch<AppDispatch>();
 	const [open, setOpen] = React.useState(false);
-	const {customers} = useSelector((s: RootState) => s.customer);
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
@@ -105,7 +104,6 @@ export default function CustomerLayout() {
 							}}
 						>
 							<MenuIcon />
-							{customers.length}
 						</IconButton>
 						<Typography
 							component="h1"

@@ -11,14 +11,15 @@ import { CustomerInterface } from '../../interfaces/customer.interface';
 
 interface CustomerProps {
 	customers: CustomerInterface[],
-	title?: string
+	title?: string,
+	rows?: number
 }
 
-export default function Customers({customers, title='Клиенты'}: CustomerProps) {
+export default function Customers({customers, title='Клиенты', rows=15}: CustomerProps) {
 	const navigate = useNavigate();
 	const countOfRecords = customers.length;
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(15);
+	const [rowsPerPage, setRowsPerPage] = useState(rows);
 
 	const handleChangePage = (
 		event: React.MouseEvent<HTMLButtonElement> | null,
