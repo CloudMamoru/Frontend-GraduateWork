@@ -47,7 +47,7 @@ export const addNewCustomer = createAsyncThunk('customers/addNewCustomer',
 		thunkApi.dispatch(recalculation());
 		setTimeout(() => {
 			thunkApi.dispatch(getCustomers());
-		}, 300);
+		}, 1000);
 		return data;
 	}
 );
@@ -84,6 +84,7 @@ export const customerSlice = createSlice({
 			state.errorMessage = action.error.message;
 		});
 		builder.addCase(addNewCustomer.fulfilled, (state, action) => {
+			// alert('Новый клиент добавлен успешно!');
 			console.log(action.payload);
 		});
 		builder.addCase(recalculation.fulfilled, (state, action) => {
@@ -93,6 +94,3 @@ export const customerSlice = createSlice({
 });
 
 export const customerActions = customerSlice.actions;
-
-
-

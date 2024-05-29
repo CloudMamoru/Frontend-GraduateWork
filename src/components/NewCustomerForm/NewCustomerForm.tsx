@@ -1,5 +1,5 @@
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Paper, TextField, Typography } from '@mui/material';
-import { FormEvent } from 'react';
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Alert, AlertTitle, Box, Button, Paper, TextField, Typography } from '@mui/material';
+import { FormEvent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Title from '../Title/Title';
 import { CustomerForm, CustomerFormKeys } from '../../interfaces/customerForm.type';
@@ -21,6 +21,7 @@ function formatDate(inputDate: string) {
 
 export const NewCustomerForm = () => {
 	const dispatch = useDispatch<AppDispatch>();
+	const [successAdd, setSuccessAdd] = useState<boolean>(false);
 
 
 	const submit = (e: FormEvent) => {
@@ -44,9 +45,14 @@ export const NewCustomerForm = () => {
 		});
 
 		const newCustomer = { ...NEW_CUSTOMER, ...obj };
-		console.log(newCustomer);
 		dispatch(addNewCustomer(newCustomer));
+		setSuccessAdd(true);
+		setTimeout(() => {
+			setSuccessAdd(false);
+		}, 5000 );
 	};
+
+	
 
 	return (
 		<div>
@@ -154,10 +160,10 @@ export const NewCustomerForm = () => {
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography style={{textAlign: 'justify'}}>
-								<b>Описание - </b>Здесь представлена информация о том, какие продукты предпочитают клиенты и сколько они готовы потратить
-								на каждую категорию. Эти данные могут помочь определить наиболее востребованные товары среди клиентов,
-								выявить тенденции в их покупательском поведении и адаптировать ассортимент и маркетинговые кампании в
-								соответствии с этими предпочтениями.
+								<b>Описание - </b>В этой группе представлена информация о предпочтительных каналах совершения покупок клиентами: онлайн,
+								через каталог или в магазинах. Кроме того, оценивается активность клиентов на веб-сайте компании. Эти данные
+								позволяют лучше понять предпочтения клиентов в сфере розничной торговли и оптимизировать каналы продаж и
+								обслуживания в соответствии с ними.
 							</Typography>
 						</AccordionDetails>
 						<AccordionActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'center' }}>
@@ -204,9 +210,10 @@ export const NewCustomerForm = () => {
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography style={{textAlign: 'justify'}}>
-								<b>Описание - </b>Эта группа переменных описывает, как клиенты реагируют на специальные предложения и маркетинговые акции компании.
-								Здесь учитывается не только факт участия в предложениях, но и степень реакции на них. Эти данные помогают оценить
-								эффективность маркетинговых кампаний и понять, какие предложения наиболее привлекательны для клиентов.
+								<b>Описание - </b>Здесь представлена информация о том, какие продукты предпочитают клиенты и сколько они готовы потратить
+								на каждую категорию. Эти данные могут помочь определить наиболее востребованные товары среди клиентов,
+								выявить тенденции в их покупательском поведении и адаптировать ассортимент и маркетинговые кампании в
+								соответствии с этими предпочтениями.
 							</Typography>
 						</AccordionDetails>
 						<AccordionActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'center' }}>
@@ -266,10 +273,9 @@ export const NewCustomerForm = () => {
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography style={{textAlign: 'justify'}}>
-								<b>Описание - </b>В этой группе представлена информация о предпочтительных каналах совершения покупок клиентами: онлайн,
-								через каталог или в магазинах. Кроме того, оценивается активность клиентов на веб-сайте компании. Эти данные
-								позволяют лучше понять предпочтения клиентов в сфере розничной торговли и оптимизировать каналы продаж и
-								обслуживания в соответствии с ними.
+								<b>Описание - </b>Эта группа переменных описывает, как клиенты реагируют на специальные предложения и маркетинговые акции компании.
+								Здесь учитывается не только факт участия в предложениях, но и степень реакции на них. Эти данные помогают оценить
+								эффективность маркетинговых кампаний и понять, какие предложения наиболее привлекательны для клиентов.
 							</Typography>
 						</AccordionDetails>
 						<AccordionActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'center' }}>
@@ -326,7 +332,15 @@ export const NewCustomerForm = () => {
 						</AccordionActions>
 					</Accordion>
 					<br />
-
+					{successAdd &&
+						<Box>
+							<Alert severity="info">
+								<AlertTitle>Информация</AlertTitle>
+								Новый клиент успешно добавлен!
+							</Alert>
+							<br />
+						</Box>
+					}
 					<Button type='submit' variant="contained">Отправить</Button>
 				</form>
 			</Paper>

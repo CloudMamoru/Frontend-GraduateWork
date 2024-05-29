@@ -1,11 +1,10 @@
 import { Grid, Paper } from '@mui/material';
-import Chart from '../../components/Chart/Chart';
-import Deposits from '../../components/Deposits/Deposits';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Customers from '../../components/Customers/Customers';
 import CustomerPieChart from '../../components/CustomerPieChart/CustomerPieChart';
 import { CustomerInterface } from '../../interfaces/customer.interface';
+import ClusterScatterChart from '../../components/CustomerScatterChart/CustomerScatterChart';
 
 
 export interface ClusterData {
@@ -43,43 +42,55 @@ function generateClusterData(customers: CustomerInterface[]): ClusterData[] {
 
 
 
-
-
-
 export const ClusterPage = () => {
 	const { customers, typicalCustomers } = useSelector((s: RootState) => s.customer);
 	const dataForPieChart = generateClusterData(customers);
 
+	const typical = [...typicalCustomers].sort((a, b) => a.Clusters - b.Clusters);
+
+	const filteredData = customers.map(function(customer) {
+		return {
+			id: customer.id,
+			Income: customer.Income,
+			Spent: customer.Spent,
+			Clusters: customer.Clusters
+		};
+	});
+
 	return (
 		<div>
-			<Grid container spacing={3}>
-				{/* Recent Deposits */}
-				<Grid item xs={12} md={4} lg={5}>
+			<Grid container spacing={1.5}>
+				<Grid item xs={14} md={4} lg={4.4}>
+					<div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+						<div>
+							<Paper
+								sx={{
+									p: 2,
+									display: 'flex',
+									flexDirection: 'column',
+									height: 280
+								}}
+							>
+								<CustomerPieChart data={dataForPieChart} />
+							</Paper>
+						</div>
+						<div>
+							<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+								<Customers customers={typical} title='Типичные представители' version='small' />
+							</Paper>
+						</div>
+					</div>
+				</Grid>
+				<Grid item xs={14} md={8} lg={7.6}>
 					<Paper
 						sx={{
-							p: 2,
-							display: 'flex',
-							flexDirection: 'column',
-							height: 280
+							p: 1,
+							height: 502
 						}}
 					>
-						<CustomerPieChart data={dataForPieChart}/>
+						<ClusterScatterChart data={filteredData}/>
 					</Paper>
 				</Grid>
-				{/* Chart */}
-				<Grid item xs={12} md={8} lg={7}>
-					<Paper
-						sx={{
-							p: 2,
-							display: 'flex',
-							flexDirection: 'column',
-							height: 280
-						}}
-					>
-						<Chart />
-					</Paper>
-				</Grid>
-				{/* Recent Orders */}
 				<Grid item xs={12}>
 					<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 						<Customers customers={customers} rows={5} />

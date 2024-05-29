@@ -12,10 +12,11 @@ import { CustomerInterface } from '../../interfaces/customer.interface';
 interface CustomerProps {
 	customers: CustomerInterface[],
 	title?: string,
+	version?: string,
 	rows?: number
 }
 
-export default function Customers({customers, title='Клиенты', rows=15}: CustomerProps) {
+export default function Customers({customers, title='Клиенты', version='big', rows=15}: CustomerProps) {
 	const navigate = useNavigate();
 	const countOfRecords = customers.length;
 	const [page, setPage] = useState(0);
@@ -62,12 +63,12 @@ export default function Customers({customers, title='Клиенты', rows=15}: 
 				<TableHead>
 					<TableRow>
 						<TableCell style={{textAlign: 'center'}}>ID</TableCell>
-						{windowSize.width > 330 && <TableCell style={{ textAlign: 'center' }}>Возраст</TableCell>}
-						{windowSize.width > 455 && <TableCell style={{ textAlign: 'center' }}>Образование</TableCell>}
-						{windowSize.width > 550 && <TableCell style={{ textAlign: 'center' }}>Годовой доход</TableCell>}
-						{windowSize.width > 670 && <TableCell style={{ textAlign: 'center' }}>Семейное положение</TableCell>}
-						{windowSize.width > 780 && <TableCell style={{ textAlign: 'center' }}>Количество детей</TableCell>}
-						{windowSize.width > 865 && 	<TableCell style={{textAlign: 'center'}}>Размер семьи</TableCell>}
+						{windowSize.width > 330 &&  <TableCell style={{ textAlign: 'center' }}>Возраст</TableCell>}
+						{windowSize.width > 455 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>Образование</TableCell>}
+						{windowSize.width > 550 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>Годовой доход</TableCell>}
+						{windowSize.width > 670 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>Семейное положение</TableCell>}
+						{windowSize.width > 780 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>Количество детей</TableCell>}
+						{windowSize.width > 865 && version === 'big' &&	<TableCell style={{textAlign: 'center'}}>Размер семьи</TableCell>}
 						<TableCell style={{textAlign: 'center'}}>Кластер</TableCell>
 					</TableRow>
 				</TableHead>
@@ -76,11 +77,11 @@ export default function Customers({customers, title='Клиенты', rows=15}: 
 						<TableRow hover onClick={() => { navigate(`/analytics/customer/${row.id}`); }} style={{textDecoration: 'none', cursor: 'pointer'}} key={row.id}>
 							<TableCell style={{textAlign: 'center'}}>{row.id}</TableCell>
 							{windowSize.width > 330 && <TableCell style={{ textAlign: 'center' }}>{row.Age}</TableCell>}
-							{windowSize.width > 455 && <TableCell style={{ textAlign: 'center' }}>{row.Education}</TableCell>}
-							{windowSize.width > 550 && <TableCell style={{ textAlign: 'center' }}>{row.Income} $</TableCell>}
-							{windowSize.width > 670 && <TableCell style={{ textAlign: 'center' }}>{row.Living_With}</TableCell>}
-							{windowSize.width > 780 && <TableCell style={{ textAlign: 'center' }}>{row.Children}</TableCell>}
-							{windowSize.width > 865 && <TableCell style={{ textAlign: 'center' }}>{row.Family_Size}</TableCell>}
+							{windowSize.width > 455 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>{row.Education}</TableCell>}
+							{windowSize.width > 550 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>{row.Income} $</TableCell>}
+							{windowSize.width > 670 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>{row.Living_With}</TableCell>}
+							{windowSize.width > 780 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>{row.Children}</TableCell>}
+							{windowSize.width > 865 && version === 'big' && <TableCell style={{ textAlign: 'center' }}>{row.Family_Size}</TableCell>}
 							<TableCell style={{ textAlign: 'center' }}>{row.Clusters}</TableCell>
 						</TableRow>
 					))}
